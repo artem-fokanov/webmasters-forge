@@ -1,0 +1,13 @@
+{
+    "name": "artem-fokanov/webmasters-forge",
+    "description": "test-task",
+    "type": "project",
+    "require": {
+    },
+    "authors": [
+        {
+            "name": "Artem Fokanov",
+            "email": "artem.fokanov@gmail.com"
+        }
+    ]
+}

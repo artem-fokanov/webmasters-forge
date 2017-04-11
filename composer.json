@@ -1,9 +1,10 @@
 {
     "name": "artem-fokanov/webmasters-forge",
-    "description": "test-task",
+    "description": "Webmasters Forge test-task",
     "type": "project",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "ext-pdo": "*"
     },
     "authors": [
         {

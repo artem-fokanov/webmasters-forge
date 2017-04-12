@@ -1,23 +1,3 @@
-<?php
-
-function register() {
-    $user = src\User::newFromArray([
-        'nickname' => 'testUser',
-        'password_hash' => password_hash('123123', PASSWORD_DEFAULT)
-    ]);
-
-    $data = array_filter($user->toArray());
-
-    $db = src\DbManager::instance();
-
-    $insert = 'insert into wforge.user (' . implode(',', array_keys($data)) . ') VALUES(:0, :1)';
-    $statement = $db->prepare($insert);
-    $statement->bindValue(':0', $data['nickname']);
-    $statement->bindValue(':1', $data['password_hash']);
-    $statement->execute();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +22,7 @@ function register() {
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 
-        <h2 class="form-signin-heading">don't have a profie?</h2>
+        <h2 class="form-signin-heading">Don't have a profile?</h2>
         <a class="btn btn-lg btn-success btn-block" href="/?signup" role="button">Sign up!</a>
     </form>
 

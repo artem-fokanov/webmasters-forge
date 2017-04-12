@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: artem
- * Date: 12.04.2017
- * Time: 6:02
- */
 
 namespace src;
 
@@ -32,7 +26,14 @@ final class User extends AbstractModel {
             case 'id':
                 return filter_var($value, FILTER_VALIDATE_INT);
             case 'nickname':
-                return strlen($value) > 0 && strlen($value) <= 30;
+                $valid = true;
+                if (preg_match('/^[^0-9]\w+$/', $value))
+                    $valid = false;
+
+                if (strlen($value) > 0 && strlen($value) <= 30)
+                    $valid = false;
+
+                return $valid;
             case 'password_hash':
                 return strlen($value) == 60;
             case 'registered':

@@ -69,4 +69,8 @@ final class User extends AbstractModel {
 
         return $db->query($sql)->fetch($db::FETCH_ASSOC);
     }
+
+    public function getNickname() {
+        return $this->nickname;
+    }
 }

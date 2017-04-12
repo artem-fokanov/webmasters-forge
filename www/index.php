@@ -14,6 +14,7 @@ $auth = new src\Auth($loginUser);
 
 if (isset($_GET['logout'])) {
     $auth->unAuth();
+    header('Location: /');
 }
 
 $templates = __ROOT__ . DS . 'view' . DS;

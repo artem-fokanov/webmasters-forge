@@ -16,7 +16,10 @@ if (isset($_GET['logout'])) {
     $auth->unAuth();
 }
 
+unset($loginUser);
+
 $templates = __ROOT__ . DS . 'view' . DS;
+
 if ($auth->isAuthentificated()) {
     include $templates.'welcome.php';
 } else {

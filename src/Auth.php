@@ -6,10 +6,10 @@ class Auth {
 
     protected $_started = false;
     protected $_isAuth = false;
-    protected $_user;
+    public $user;
 
     public function __construct(User &$user) {
-        $this->_user = $user;
+        $this->user = $user;
         $this->auth();
     }
 
@@ -23,19 +23,19 @@ class Auth {
         if(isset($_COOKIE[session_name()])) {
             $this->_startSession();
 
-            $this->_user = $_SESSION['user'];
+            $this->user = $_SESSION['user'];
 
             $this->_isAuth = true;
             return;
         }
 
         if (isset($_POST['nickname'], $_POST['password'])) {
-            $userData = $this->_user->getByNickname($_POST['nickname']);
+            $userData = $this->user->getByNickname($_POST['nickname']);
 
             if (password_verify($_POST['password'], $userData['password_hash'])) {
                 $this->_startSession();
 
-                $_SESSION['user'] = $this->_user;
+                $_SESSION['user'] = $this->user;
 
                 $this->_isAuth = true;
                 return;

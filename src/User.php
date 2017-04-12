@@ -30,10 +30,13 @@ final class User extends AbstractModel {
     {
         switch ($property) {
             case 'id':
-            case 'registered':
                 return filter_var($value, FILTER_VALIDATE_INT);
+            case 'nickname':
+                return strlen($value) > 0 && strlen($value) <= 30;
             case 'password_hash':
                 return strlen($value) == 60;
+            case 'registered':
+                return (\DateTime::createFromFormat('Y-m-d H:i:s', $value) !== false);
             default:
                 return true;
         }
@@ -50,5 +53,9 @@ final class User extends AbstractModel {
         }
 
         $this->$property = $value;
+    }
+
+    public function getByNickname(\PDOStatement $statement, $nickname) {
+
     }
 }

@@ -51,6 +51,9 @@ final class User extends AbstractModel {
     {
         if (property_exists($this, $property)) {
             switch ($property) {
+                case 'id':
+                    $value = intval($value);
+                    break;
                 case 'nickname':
                     $value = filter_var($value, FILTER_SANITIZE_STRING);
                     break;
@@ -67,7 +70,11 @@ final class User extends AbstractModel {
 
         $sql = "select * from wforge.user where nickname = '{$this->nickname}'";
 
-        return $db->query($sql)->fetch($db::FETCH_ASSOC);
+        foreach($db->query($sql)->fetch($db::FETCH_ASSOC) as $k => $v) {
+            $this->cast($k, $v);
+        }
+
+        return $this->toArray();
     }
 
     public function getNickname() {

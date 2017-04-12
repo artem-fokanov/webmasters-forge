@@ -7,14 +7,13 @@ require_once __ROOT__ . DS . 'autoloader.php';
 if (isset($_POST['nickname'], $_POST['password'])) {
     $loginUser = src\User::newFromArray($_POST);
 } else {
-    $loginUser = null;
+    $loginUser = new src\User();
 }
 
 $auth = new src\Auth($loginUser);
 
 if (isset($_GET['logout'])) {
     $auth->unAuth();
-    header('Location: /');
 }
 
 $templates = __ROOT__ . DS . 'view' . DS;

@@ -8,20 +8,23 @@ class Auth {
     protected $_isAuth = false;
     protected $_user;
 
-    public function __construct(User $user = null) {
-        if (!is_null($user)) {
-            $this->_user = $user;
-        }
+    public function __construct(User &$user) {
+        $this->_user = $user;
         $this->auth();
     }
 
     public function unAuth() {
         $this->_destroySession();
+        $this->_isAuth = false;
+        header('Location: /');
     }
 
     public function auth() {
         if(isset($_COOKIE[session_name()])) {
             $this->_startSession();
+
+            $this->_user = $_SESSION['user'];
+
             $this->_isAuth = true;
             return;
         }
@@ -31,6 +34,9 @@ class Auth {
 
             if (password_verify($_POST['password'], $userData['password_hash'])) {
                 $this->_startSession();
+
+                $_SESSION['user'] = $this->_user;
+
                 $this->_isAuth = true;
                 return;
             }
@@ -48,9 +54,9 @@ class Auth {
         if ($this->_started) {
             session_unset();
             session_destroy();
-            unset($_COOKIE[session_name()]);
+            setcookie(session_name(), '', 1);
+//            unset($_COOKIE[session_name()]);
             $this->_started = false;
-            $this->_isAuth = false;
         }
     }
 

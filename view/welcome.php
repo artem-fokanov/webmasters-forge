@@ -16,7 +16,7 @@
                 <a href="#" class="navbar-brand">test php</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
-                <a class="btn pull-right btn-default navbar-btn" href="/?logout" role="button">Logout</a>
+                <a class="btn pull-right btn-default navbar-btn" href="/?signout" role="button">Sign out</a>
             </div>
         </div>
     </nav>

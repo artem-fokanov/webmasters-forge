@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="registration.css">
+<!--    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="sign-up.css">
 </head>
 <body>
 <div class="container">
@@ -33,12 +33,6 @@
         </div>
 
         <div class="form-group">
-            <label for="inputImage">File input</label>
-            <input type="file" id="inputImage">
-            <p class="help-block">Example block-level help text here.</p>
-        </div>
-
-        <div class="form-group">
             <label for="inputPassword" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" id="inputPassword" placeholder="">
@@ -53,8 +47,19 @@
         </div>
 
         <div class="form-group">
+            <label for="inputImage">Image</label>
+            <input type="file" id="inputImage">
+        </div>
+
+        <!--<div class="form-group">
+            <label class="btn btn-default btn-file">
+                Browse <input type="file" hidden>
+            </label>
+        </div>-->
+
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Registrate</button>
+                <button type="submit" class="btn btn-primary">Sign up</button>
                 <a class="btn btn-default" href="/" role="button">Cancel</a>
             </div>
         </div>

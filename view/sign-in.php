@@ -25,13 +25,13 @@ function register() {
     <title>Sign in</title>
 <!--    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="signin.css">
+    <link rel="stylesheet" href="sign-in.css">
 </head>
 <body>
 
 <div class="container">
 
-    <form class="form-signin" method="post" name="login">
+    <form class="form-signin" method="post" name="signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputNick" class="sr-only">Login</label>
         <input type="text" name="nickname" id="inputNick" class="form-control" placeholder="Login" required="" autofocus="">

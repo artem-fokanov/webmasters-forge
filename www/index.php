@@ -11,17 +11,18 @@ if (isset($_POST['nickname'], $_POST['password'])) {
 }
 
 $auth = new src\Auth($loginUser);
+unset($loginUser);
 
-if (isset($_GET['logout'])) {
+if (isset($_GET['signout'])) {
     $auth->unAuth();
 }
-
-unset($loginUser);
 
 $templates = __ROOT__ . DS . 'view' . DS;
 
 if ($auth->isAuthentificated()) {
     include $templates.'welcome.php';
+} elseif(isset($_GET['signup'])) {
+    include $templates.'sign-up.php';
 } else {
-    include $templates.'login.php';
+    include $templates.'sign-in.php';
 }

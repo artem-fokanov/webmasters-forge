@@ -10,7 +10,9 @@
 <body>
 <div class="container">
 
-    <form class="form-horizontal form-registration">
+    <form class="form-horizontal form-registration" method="post" action="">
+        <h2 class="form-signin-heading">Signing up</h2>
+
         <div class="form-group">
             <label for="inputNickname" class="col-sm-2 control-label">Login</label>
             <div class="col-sm-10">
@@ -58,9 +60,16 @@
         </div>-->
 
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Sign up</button>
-                <a class="btn btn-default" href="/" role="button">Cancel</a>
+            <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Sign up</button>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-lg btn-default" href="/" role="button">Cancel</a>
+                </div>
+
+            </div>
             </div>
         </div>
     </form>

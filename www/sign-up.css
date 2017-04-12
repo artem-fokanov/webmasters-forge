@@ -1,11 +1,11 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    /*background-color: #eee;*/
+    background-color: #eee;
 }
 
 .form-registration {
-    max-width: 440px;
+    max-width: 550px;
     padding: 15px;
     margin: 0 auto;
 }

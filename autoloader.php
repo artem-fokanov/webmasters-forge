@@ -1,11 +1,13 @@
 <?php
 
 spl_autoload_register(function ($class_name) {
-    include __ROOT__ . DS . 'src' . DS . $class_name . '.php';
+    $ns = explode('\\', $class_name);
+    $path = implode(DS, $ns);
+    include __ROOT__  . DS . $path . '.php';
 });
 
 function critical_shutdown($exception) {
-    echo "Â ðàáîòå ñåðâåðà ïðîèçîøëà îøèáêà: " , $exception->getMessage(), nl2br("\n");
+    echo "Ð’ Ñ€Ð°Ð±Ð¾Ñ‚Ðµ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð¿Ñ€Ð¾Ð¸Ð·Ð¾ÑˆÐ»Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ°: " , $exception->getMessage(), nl2br("\n");
 }
 
 set_exception_handler('critical_shutdown');

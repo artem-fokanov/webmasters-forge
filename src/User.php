@@ -31,7 +31,7 @@ final class User extends AbstractModel {
                 if (!preg_match('/^[^0-9]\w+$/', $value))
                     $valid = false;
 
-                if (!(strlen($value) > 3 && strlen($value) <= 30))
+                if (!(strlen($value) >= 3 && strlen($value) <= 30))
                     $valid = false;
 
                 return $valid;

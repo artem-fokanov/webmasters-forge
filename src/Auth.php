@@ -13,13 +13,8 @@ class Auth {
         $this->auth();
     }
 
-    public function unAuth() {
-        $this->_destroySession();
-        $this->_isAuth = false;
-        header('Location: /');
-    }
-
     public function auth() {
+
         if(isset($_COOKIE[session_name()])) {
             $this->_startSession();
 
@@ -41,6 +36,12 @@ class Auth {
                 return;
             }
         }
+    }
+
+    public function unAuth() {
+        $this->_destroySession();
+        $this->_isAuth = false;
+        header('Location: /');
     }
 
     protected function _startSession() {

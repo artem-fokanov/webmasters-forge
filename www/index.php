@@ -5,6 +5,8 @@ define('DS', DIRECTORY_SEPARATOR);
 
 require_once __ROOT__ . DS . 'autoloader.php';
 
-$content = include __ROOT__ . DS . 'view' . DS . 'login.php';
+$templates = __ROOT__ . DS . 'view' . DS;
+
+$content = include $templates . 'login.php';
 
 echo $content;

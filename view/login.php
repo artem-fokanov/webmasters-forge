@@ -3,7 +3,6 @@
 function login() {
 
     try {
-
         $post = $_POST;
 
         $db = new src\DbManager();

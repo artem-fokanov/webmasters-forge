@@ -5,6 +5,12 @@ define('DS', DIRECTORY_SEPARATOR);
 
 require_once __ROOT__ . DS . 'autoloader.php';
 
-$content = include __ROOT__ . DS . 'view' . DS . 'login.php';
+$user = new src\Auth();
+
+if ($user->isAuthentificated()) {
+    $content = include __ROOT__ . DS . 'view' . DS . 'welcome.php';
+} else {
+    $content = include __ROOT__ . DS . 'view' . DS . 'login.php';
+}
 
 echo $content;

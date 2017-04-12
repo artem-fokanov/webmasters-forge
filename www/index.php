@@ -2,15 +2,23 @@
 
 defined('__ROOT__') or define('__ROOT__', dirname(dirname(__FILE__)));
 define('DS', DIRECTORY_SEPARATOR);
-$templates = __ROOT__ . DS . 'view' . DS;
 require_once __ROOT__ . DS . 'autoloader.php';
 
-$user = new src\Auth();
-
-if ($user->isAuthentificated()) {
-    $content = include $templates . 'welcome.php';
+if (isset($_POST['nickname'], $_POST['password'])) {
+    $loginUser = src\User::newFromArray($_POST);
 } else {
-    $content = include $templates . 'login.php';
+    $loginUser = null;
 }
 
-echo $content;
+$auth = new src\Auth($loginUser);
+
+if (isset($_GET['logout'])) {
+    $auth->unAuth();
+}
+
+$templates = __ROOT__ . DS . 'view' . DS;
+if ($auth->isAuthentificated()) {
+    include $templates.'welcome.php';
+} else {
+    include $templates.'login.php';
+}

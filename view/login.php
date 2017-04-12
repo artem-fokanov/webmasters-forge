@@ -1,25 +1,5 @@
 <?php
 
-function login() {
-
-    try {
-        $post = $_POST;
-
-        $db = new src\DbManager();
-        $rows = $db->query('select * from wforge.user');
-        foreach ($rows->fetch(PDO::FETCH_ASSOC) as $r) {
-            $pass = password_verify('123123', password_hash('123123', PASSWORD_DEFAULT));
-        }
-
-    } catch (PDOException $exception) {
-        die($exception->getMessage());
-    }
-}
-
-function logout() {
-
-}
-
 function register() {
     $user = src\User::newFromArray([
         'nickname' => 'testUser',
@@ -28,7 +8,7 @@ function register() {
 
     $data = array_filter($user->toArray());
 
-    $db = new src\DbManager();
+    $db = src\DbManager::instance();
 
     $insert = 'insert into wforge.user (' . implode(',', array_keys($data)) . ') VALUES(:0, :1)';
     $statement = $db->prepare($insert);
@@ -50,7 +30,7 @@ function register() {
 
 <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" method="post" name="login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputNick" class="sr-only">Login</label>
         <input type="text" name="nickname" id="inputNick" class="form-control" placeholder="Login" required="" autofocus="">

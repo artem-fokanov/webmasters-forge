@@ -25,19 +25,23 @@ final class User extends AbstractModel {
         switch ($property) {
             case 'id':
                 return filter_var($value, FILTER_VALIDATE_INT);
+
             case 'nickname':
                 $valid = true;
-                if (preg_match('/^[^0-9]\w+$/', $value))
+                if (!preg_match('/^[^0-9]\w+$/', $value))
                     $valid = false;
 
-                if (strlen($value) > 0 && strlen($value) <= 30)
+                if (!(strlen($value) > 3 && strlen($value) <= 30))
                     $valid = false;
 
                 return $valid;
+
             case 'password_hash':
                 return strlen($value) == 60;
+
             case 'registered':
                 return (\DateTime::createFromFormat('Y-m-d H:i:s', $value) !== false);
+
             default:
                 return true;
         }
@@ -45,18 +49,24 @@ final class User extends AbstractModel {
 
     protected function cast($property, $value)
     {
-        switch ($property) {
-            case 'nickname':
-                $value = filter_var($value, FILTER_SANITIZE_STRING);
-                break;
-            default:
-                break;
-        }
+        if (property_exists($this, $property)) {
+            switch ($property) {
+                case 'nickname':
+                    $value = filter_var($value, FILTER_SANITIZE_STRING);
+                    break;
+                default:
+                    break;
+            }
 
-        $this->$property = $value;
+            $this->$property = $value;
+        }
     }
 
-    public function getByNickname(\PDOStatement $statement, $nickname) {
+    public function getByNickname() {
+        $db = DbManager::instance();
 
+        $sql = "select * from wforge.user where nickname = '{$this->nickname}'";
+
+        return $db->query($sql)->fetch($db::FETCH_ASSOC);
     }
 }

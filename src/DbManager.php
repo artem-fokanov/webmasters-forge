@@ -2,6 +2,12 @@
 
 namespace src;
 
+/**
+ * Менеджер по работе с БД
+ *
+ * Class DbManager
+ * @package src
+ */
 class DbManager extends \PDO {
 
     static private $instance = null;
@@ -14,6 +20,11 @@ class DbManager extends \PDO {
 
     private function __clone() {}
 
+    /**
+     * Обращение к синглтон-классу
+     *
+     * @return null|DbManager
+     */
     static function instance() {
         if(self::$instance == null) {
             self::$instance = new self();
@@ -21,6 +32,13 @@ class DbManager extends \PDO {
         return self::$instance;
     }
 
+    /**
+     * Операция записи в БД
+     *
+     * @param $table - имя таблицы
+     * @param $params - параметры для записи
+     * @return int - возвращает id записи
+     */
     public function insert($table, $params) {
         $db = self::instance();
         $columns = implode(', ', array_keys($params));
@@ -40,6 +58,13 @@ class DbManager extends \PDO {
         return intval($db->lastInsertId());
     }
 
+    /**
+     * Операция выборки из БД
+     *
+     * @param $table - имя таблицы
+     * @param $where - параметры выборки
+     * @return mixed
+     */
     public function select($table, $where) {
         $db = self::instance();
         $columns = array_keys($where);

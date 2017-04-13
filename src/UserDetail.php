@@ -3,6 +3,12 @@
 namespace src;
 
 
+/**
+ * Класс-представление записи в таблице wforge.user_detail
+ *
+ * Class UserDetail
+ * @package src
+ */
 class UserDetail extends AbstractModel {
 
     protected $user_id;

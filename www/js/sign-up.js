@@ -1,8 +1,7 @@
-// var f=document.forms.signup.elements;f.nickname.value='zvu';f.name.value='Artem';f.email.value='artem.fokanov@gmail.com';f.password.value='12345';f.password_confirm.value='54321';
-
 $('form').on('submit', function() {
     var form = this;
 
+    // скрытие помощника
     $(form).find('.has-success, .has-error').removeClass('has-success has-error');
     $(form).find('span.help-block').text('');
 
@@ -11,8 +10,9 @@ $('form').on('submit', function() {
 });
 
 function validate(form) {
-    var FIELD_OK = true;
-    var FIELD_ERROR = false;
+    // флаги для передачи в помощник
+    var FIELD_OK = true,
+        FIELD_ERROR = false;
 
     var isValidForm = true,
         locale = getCookie();
@@ -84,6 +84,7 @@ function validate(form) {
     return isValidForm;
 }
 
+// помощник
 function visualizeHelp(elemId, status, message) {
     var colorClass = (status) ? 'success' : 'error';
 
@@ -94,9 +95,10 @@ function visualizeHelp(elemId, status, message) {
     }
 }
 
+// словарь сообщений
 var messages = {
     en: {
-        alphanum_characters: "This field should contain alpha-numeric characters",
+        alphanum_characters: "This field should contain only latin alpha-numeric characters",
         nickname_length: "This field couldn't contain more than 30 characters",
         name_length: "This field couldn't contain more than 100 characters",
         email_length: "This field couldn't contain more than 50 characters",
@@ -104,7 +106,7 @@ var messages = {
         password_mismatch: "Password mismatch"
     },
     ru: {
-        alphanum_characters: "Это поле должно содержать только буквенно-цифровые символы",
+        alphanum_characters: "Это поле должно содержать только латинские буквенно-цифровые символы",
         nickname_length: "Это поле не может содержать более 30 символов",
         name_length: "Это поле не может содержать более 100 символов",
         email_length: "Это поле не может содержать более 50 символов",
@@ -113,7 +115,7 @@ var messages = {
     }
 };
 
-// возвращает cookie с именем name, если есть, если нет, то undefined
+// возвращает cookie с локалью
 function getCookie() {
     var matches = document.cookie.match(new RegExp(
         "(?:^|; )" + 'locale'.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"

@@ -4,8 +4,19 @@ namespace src;
 
 class Auth {
 
+    /**
+     * @var bool - флаг создания сессии
+     */
     protected $_started = false;
+
+    /**
+     * @var bool - флаг авторизованного пользователя
+     */
     protected $_isAuth = false;
+
+    /**
+     * @var \src\User - модель пользователя
+     */
     public $user;
 
     public function __construct(User &$user) {
@@ -13,8 +24,12 @@ class Auth {
         $this->auth();
     }
 
+    /**
+     * авторизация
+     */
     public function auth() {
 
+        // возобновление ранее начатой сессии
         if(isset($_COOKIE[session_name()])) {
             $this->_startSession();
 
@@ -24,6 +39,7 @@ class Auth {
             return;
         }
 
+        // создание новой сессии при наличии логин-пароля
         if (isset($_POST['nickname'], $_POST['password'])) {
 
             $userData = $this->user->getByNickname($_POST['nickname']);
@@ -39,9 +55,13 @@ class Auth {
         }
     }
 
+    /**
+     * деавторизация
+     */
     public function unAuth() {
         $this->_destroySession();
         $this->_isAuth = false;
+        // перенаправление на "главную"
         header('Location: /');
     }
 
@@ -57,7 +77,6 @@ class Auth {
             session_unset();
             session_destroy();
             setcookie(session_name(), '', 1);
-//            unset($_COOKIE[session_name()]);
             $this->_started = false;
         }
     }

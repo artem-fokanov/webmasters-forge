@@ -2,7 +2,7 @@ create database if not exists wforge;
 
 create table if not exists wforge.user (
   id int(6) unsigned auto_increment primary key,
-  nickname varchar(30) not null,
+  nickname varchar(30) unique not null,
   password_hash char(60) not null,
   registered timestamp default current_timestamp()
 );

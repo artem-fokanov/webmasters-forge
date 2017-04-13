@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Welcome</title>
 <!--    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 
@@ -21,15 +21,27 @@
         </div>
     </nav>
 
-    <h3>Welcome, <?=$auth->user->nickname ?>!</h3>
-    <p>Finest user since <?=$auth->user->registered ?></p>
     <?php
-        $a = new src\UserDetail();
-        $a->getByUserId($auth->user->id);
+    $details = new src\UserDetail();
+    $details->getByUserId($auth->user->id);
+    ?>
 
-        if ($a->image) : ?>
-            <img class="img-rounded" src="data:<?=$a->image_mime?>;base64,<?=base64_encode(stripslashes($a->image))?>" />
-        <?php endif;?>
+
+    <h3>Welcome,
+        <?php
+        if ($details->name)
+            echo $details->name, ' (', $auth->user->nickname, ')';
+        else
+            echo $auth->user->nickname;
+        ?>!
+    </h3>
+
+    <p>Finest user since <?=$auth->user->registered ?></p>
+
+    <?php if ($details->image) : ?>
+        <img class="img-rounded" src="data:<?=$details->image_mime?>;base64,<?=base64_encode(stripslashes($details->image))?>" />
+    <?php endif;?>
+
 </div>
 
 </body>

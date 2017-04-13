@@ -4,55 +4,57 @@
     <meta charset="UTF-8">
     <title>Sign up</title>
 <!--    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="sign-up.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sign-up.css">
+    <script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <div class="container">
 
-    <form class="form-horizontal form-registration" method="post" action="/" enctype="multipart/form-data">
+    <form name="signup" class="form-horizontal form-registration" method="post" action="/" enctype="multipart/form-data">
         <h2 class="form-signin-heading">Signing up</h2>
 
         <div class="form-group">
-            <label for="inputNickname" class="col-sm-2 control-label">Login</label>
+            <label for="nickname" class="col-sm-2 control-label">Login</label>
             <div class="col-sm-10">
-                <input type="text" name="nickname" class="form-control" id="inputNickname" placeholder="Nickname" autofocus required>
+                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nickname" autofocus required>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="inputName" class="col-sm-2 control-label">Name</label>
+            <label for="name" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="inputName" placeholder="Full name">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Full name">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+            <label for="email" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" name="email" class="form-control" id="inputEmail" placeholder="" required>
+                <input type="email" name="email" class="form-control" id="email" placeholder="" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+            <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="" required>
+                <input type="password" name="password" class="form-control" id="password" placeholder="" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="inputPasswordConfirm" class="col-sm-2 control-label">Password confirmation</label>
+            <label for="password_confirm" class="col-sm-2 control-label">Confirmation</label>
             <div class="col-sm-10">
-                <input type="password" name="password_confirm" class="form-control" id="inputPasswordConfirm" placeholder="" required>
+                <input type="password" class="form-control" id="password_confirm" placeholder="" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2" for="inputImage">Image</label>
+            <label for="image" class="col-sm-2 control-label">Image</label>
             <div class="col-sm-10">
-                <input type="file" name="image" id="inputImage">
+                <input type="file" name="image" id="image">
             </div>
+<!--            <span id="helpBlock2" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
         </div>
 
         <!--<div class="form-group">
@@ -69,5 +71,6 @@
 
 </div>
 
+<script type="application/javascript" src="js/sign-up.js"></script>
 </body>
 </html>

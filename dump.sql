@@ -12,8 +12,5 @@ create table if not exists wforge.user_detail (
   user_id int(6) unsigned primary key,
   name varchar(100),
   email varchar(50) not null,
-  image_content longblob default null,
-  image_name varchar(50) default null,
-  image_size varchar(50) default null,
-  image_type varchar(50) default null
+  image longblob default null
 );

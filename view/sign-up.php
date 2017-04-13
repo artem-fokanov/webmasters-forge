@@ -19,6 +19,7 @@
             <div class="col-sm-10">
                 <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nickname" autofocus required>
             </div>
+            <span id="nickname-help-block" class="help-block"></span>
         </div>
 
         <div class="form-group">
@@ -26,6 +27,7 @@
             <div class="col-sm-10">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Full name">
             </div>
+            <span id="name-help-block" class="help-block"></span>
         </div>
 
         <div class="form-group">
@@ -33,6 +35,7 @@
             <div class="col-sm-10">
                 <input type="email" name="email" class="form-control" id="email" placeholder="" required>
             </div>
+            <span id="email-help-block" class="help-block"></span>
         </div>
 
         <div class="form-group">
@@ -40,6 +43,7 @@
             <div class="col-sm-10">
                 <input type="password" name="password" class="form-control" id="password" placeholder="" required>
             </div>
+            <span id="password-help-block" class="help-block"></span>
         </div>
 
         <div class="form-group">
@@ -47,6 +51,7 @@
             <div class="col-sm-10">
                 <input type="password" class="form-control" id="password_confirm" placeholder="" required>
             </div>
+            <span id="password_confirm-help-block" class="help-block"></span>
         </div>
 
         <div class="form-group">
@@ -54,7 +59,7 @@
             <div class="col-sm-10">
                 <input type="file" name="image" id="image">
             </div>
-<!--            <span id="helpBlock2" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
+            <span id="image-help-block" class="help-block"></span>
         </div>
 
         <!--<div class="form-group">

@@ -16,7 +16,7 @@
         <div class="form-group">
             <label for="inputNickname" class="col-sm-2 control-label">Login</label>
             <div class="col-sm-10">
-                <input type="text" name="nickname" class="form-control" id="inputNickname" placeholder="Nickname" autofocus>
+                <input type="text" name="nickname" class="form-control" id="inputNickname" placeholder="Nickname" autofocus required>
             </div>
         </div>
 
@@ -37,14 +37,14 @@
         <div class="form-group">
             <label for="inputPassword" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="">
+                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputPasswordConfirm" class="col-sm-2 control-label">Password confirmation</label>
             <div class="col-sm-10">
-                <input type="password" name="password_confirm" class="form-control" id="inputPasswordConfirm" placeholder="">
+                <input type="password" name="password_confirm" class="form-control" id="inputPasswordConfirm" placeholder="" required>
             </div>
         </div>
 

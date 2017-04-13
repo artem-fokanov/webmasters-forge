@@ -6,9 +6,6 @@
     <title><?=t('Sign in')?></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sign-in.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <script type="application/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -18,11 +15,11 @@
 
         <h2 class="form-signin-heading"><?=t('Please sign in')?></h2>
 
-        <?php if (isset($loginException)) : ?>
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <?=t('Incorrect username or password')?>
-        </div>
+        <?php if (isset($authException)) : ?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?=t($authException)?>
+            </div>
         <?php endif; ?>
 
         <label for="inputNick" class="sr-only"><?=t('Login')?></label>
@@ -43,5 +40,10 @@
 
 <?php include $templates.'footer.php'; ?>
 
+<script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
+
+<?php if (isset($authException)) : ?>
+<script type="application/javascript" src="js/bootstrap.min.js"></script>
+<?php endif; ?>
 </body>
 </html>

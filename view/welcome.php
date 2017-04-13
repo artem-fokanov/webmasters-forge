@@ -9,7 +9,6 @@
     <meta charset="UTF-8">
     <title><?=t('Welcome')?></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
 <nav class="navbar navbar-default">

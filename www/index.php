@@ -18,6 +18,7 @@ if (isset($_POST['nickname'], $_POST['password'])) {
 
     // регистрация
     if (isset($_POST['email'])) {
+        $register = true;
 
         // шифруем пароль
         $post['password_hash'] = password_hash($post['password'], PASSWORD_DEFAULT);
@@ -48,6 +49,7 @@ if (isset($_POST['nickname'], $_POST['password'])) {
             header('Location: /');
         } catch (PDOException $e) {
             $db->rollback();
+            $register = false;
         }
     }
 
@@ -58,13 +60,16 @@ if (isset($_POST['nickname'], $_POST['password'])) {
 try {
     $auth = new src\Auth($user);
 
-    if (isset($login) && !$auth->isAuthentificated())
+    if (isset($register) && $register === false)
+        throw new src\AuthException('', src\AuthException::USER_WITH_SUCH_LOGIN_EXIST);
+
+    if (isset($login) && $auth->isAuthentificated() === false)
         throw new src\AuthException();
 
     unset($user);
 
 } catch (src\AuthException $e) {
-    $loginException = $e->getMessage();
+    $authException = $e->getMessage();
 }
 
 // действие деавторизации
@@ -72,13 +77,12 @@ if (isset($_GET['signout'])) {
     controllerLogout($auth);
 }
 
-
 $templates = __ROOT__ . DS . 'view' . DS;
 
 if ($auth->isAuthentificated()) {
     include $templates.'welcome.php';
 }
-elseif (isset($_GET['signup'])) {
+elseif (isset($_GET['signup']) || (isset($register) && $register === false) ) {
     include $templates.'sign-up.php';
 }
 else {

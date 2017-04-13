@@ -21,8 +21,8 @@
         'nickname' => 'никнейм',
         'full name (optional)' => 'полное имя (опционально)',
         'password confirmation' => 'подтверждение пароля',
-        'password' => 'пароль'
-
+        'password' => 'пароль',
+        'User with such login is already exists' => 'Пользователь с таким логином уже существует'
     ],
     'welcome' => [
         'Welcome' => 'Приветствуем',

@@ -86,17 +86,3 @@ class Auth {
     }
 
 }
-
-class AuthException extends \Exception {
-
-    const USER_DOESNT_EXIST = 0;
-
-    public function __construct($message = "", $code = 0, $previous = null)
-    {
-        switch ($code) {
-            case self::USER_DOESNT_EXIST:
-                $message = 'User doesn\'t exist.';
-        }
-        parent::__construct($message, $code, $previous);
-    }
-}

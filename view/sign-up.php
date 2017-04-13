@@ -13,6 +13,13 @@
     <form name="signup" class="form-horizontal form-registration" method="post" action="/" enctype="multipart/form-data">
         <h2 class="form-signin-heading"><?=t('Signing up')?></h2>
 
+        <?php if (isset($authException)) : ?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?=t($authException)?>
+            </div>
+        <?php endif; ?>
+
         <div class="form-group required">
             <label for="nickname" class="col-sm-3 control-label"><?=t('Login')?></label>
             <div class="col-sm-9">
@@ -81,5 +88,10 @@
 
 <script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="application/javascript" src="js/sign-up.js"></script>
+
+<?php if (isset($authException)) : ?>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+<?php endif; ?>
+
 </body>
 </html>

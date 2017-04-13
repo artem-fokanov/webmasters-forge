@@ -1,3 +1,7 @@
+<?php
+    $details = new src\UserDetail();
+    $details->getByUserId($auth->user->id);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +17,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="#" class="navbar-brand">test php</a>
+                <a href="#" class="navbar-brand"><?=$auth->user->nickname?></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
                 <a class="btn pull-right btn-default navbar-btn" href="/?signout" role="button">Sign out</a>
@@ -21,10 +25,6 @@
         </div>
     </nav>
 
-    <?php
-    $details = new src\UserDetail();
-    $details->getByUserId($auth->user->id);
-    ?>
 
 
     <h3>Welcome,
@@ -36,7 +36,9 @@
         ?>!
     </h3>
 
-    <p>Finest user since <?=$auth->user->registered ?></p>
+    <p>Our finest user since <?=$auth->user->registered ?></p>
+
+    <p>Email <?=$details->email?></p>
 
     <?php if ($details->image) : ?>
         <img class="img-rounded" src="data:<?=$details->image_mime?>;base64,<?=base64_encode(stripslashes($details->image))?>" />

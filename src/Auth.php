@@ -25,9 +25,10 @@ class Auth {
         }
 
         if (isset($_POST['nickname'], $_POST['password'])) {
+
             $userData = $this->user->getByNickname($_POST['nickname']);
 
-            if (password_verify($_POST['password'], $userData['password_hash'])) {
+            if ($userData && password_verify($_POST['password'], $userData['password_hash'])) {
                 $this->_startSession();
 
                 $_SESSION['user'] = $this->user;
@@ -65,4 +66,18 @@ class Auth {
         return $this->_isAuth;
     }
 
+}
+
+class AuthException extends \Exception {
+
+    const USER_DOESNT_EXIST = 0;
+
+    public function __construct($message = "", $code = 0, $previous = null)
+    {
+        switch ($code) {
+            case self::USER_DOESNT_EXIST:
+                $message = 'User doesn\'t exist.';
+        }
+        parent::__construct($message, $code, $previous);
+    }
 }

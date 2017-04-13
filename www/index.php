@@ -4,48 +4,58 @@ defined('__ROOT__') or define('__ROOT__', dirname(dirname(__FILE__)));
 define('DS', DIRECTORY_SEPARATOR);
 require_once __ROOT__ . DS . 'autoloader.php';
 
-if (isset($_POST['nickname'], $_POST['password'])) {
-    $post = $_POST;
-    $user = src\User::newFromArray($post);
+try {
 
-    // регистрация
-    if (isset($_POST['email'])) {
-        $post['password_hash'] = password_hash($post['password'], PASSWORD_DEFAULT);
-        // вначале получить id
-        if (isset($_FILES['image'])) {
-            $image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); //SQL Injection defence!
-            $mime = $_FILES['image']['type'];
-            $post = array_merge($post, ['image' => $image, 'image_mime' => $mime]);
-        }
+    if (isset($_POST['nickname'], $_POST['password'])) {
+        $login = true;
+        $post = $_POST;
         $user = src\User::newFromArray($post);
 
-        $db = \src\DbManager::instance();
-        $db->beginTransaction();
+        // регистрация
+        if (isset($_POST['email'])) {
+            $post['password_hash'] = password_hash($post['password'], PASSWORD_DEFAULT);
+            // вначале получить id
+            if (isset($_FILES['image'])) {
+                $image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); //SQL Injection defence!
+                $mime = $_FILES['image']['type'];
+                $post = array_merge($post, ['image' => $image, 'image_mime' => $mime]);
+            }
+            $user = src\User::newFromArray($post);
 
-        try {
-            $userId = $db->insert('user', array_filter($user->toArray()));
+            $db = \src\DbManager::instance();
+            $db->beginTransaction();
 
-            $post = array_merge($post, ['user_id' => $userId]);
+            try {
+                $userId = $db->insert('user', array_filter($user->toArray()));
 
-            $userDetail = src\UserDetail::newFromArray($post);
+                $post = array_merge($post, ['user_id' => $userId]);
 
-            $userDetailId = $db->insert('user_detail', $userDetail->toArray());
+                $userDetail = src\UserDetail::newFromArray($post);
 
-            $db->commit();
+                $userDetailId = $db->insert('user_detail', $userDetail->toArray());
 
-            header('Location: /');
-        } catch (PDOException $e) {
-            $db->rollback();
+                $db->commit();
+
+                header('Location: /');
+            } catch (PDOException $e) {
+                $db->rollback();
+            }
         }
 
+    } else {
+        $user = new src\User();
     }
 
-} else {
-    $user = new src\User();
-}
+    $auth = new src\Auth($user);
 
-$auth = new src\Auth($user);
-unset($user);
+    if (isset($login) && !$auth->isAuthentificated())
+        throw new src\AuthException();
+
+    unset($user);
+
+} catch (src\AuthException $e) {
+    $loginException = $e->getMessage();
+}
 
 if (isset($_GET['signout'])) {
     $auth->unAuth();

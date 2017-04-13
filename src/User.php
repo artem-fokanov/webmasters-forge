@@ -69,6 +69,9 @@ final class User extends AbstractModel {
         $db = DbManager::instance();
         $data = $db->select('user', ['nickname' => $this->nickname]);
 
+        if (!$data)
+            return false;
+
         foreach($data as $k => $v) {
             $this->cast($k, $v);
         }

@@ -28,10 +28,25 @@ class UserDetail extends AbstractModel {
                 return filter_var($value, FILTER_VALIDATE_INT);
 
             case 'name':
-                return filter_var($value, FILTER_SANITIZE_STRING);
+                $valid = true;
+//                if (!preg_match('/^[^0-9]\w+$/', $value))
+//                    $valid = false;
+
+                if (strlen($value) > 100)
+                    $valid = false;
+
+                return $valid;
 
             case 'email':
-                return filter_var($value, FILTER_VALIDATE_EMAIL);
+                $valid = true;
+
+                if (strlen($value) > 50)
+                    $valid = false;
+
+                if (filter_var($value, FILTER_VALIDATE_EMAIL) === false)
+                    $valid = false;
+
+                return $valid;
 
             default:
                 return true;

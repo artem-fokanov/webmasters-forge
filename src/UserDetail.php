@@ -57,4 +57,15 @@ class UserDetail extends AbstractModel {
             $this->$property = $value;
         }
     }
+
+    public function getByUserId($userId) {
+        $db = DbManager::instance();
+        $data = $db->select('user_detail', ['user_id' => $userId]);
+
+        foreach($data as $k => $v) {
+            $this->cast($k, $v);
+        }
+
+        return $this->toArray();
+    }
 }

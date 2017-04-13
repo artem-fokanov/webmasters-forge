@@ -67,17 +67,12 @@ final class User extends AbstractModel {
 
     public function getByNickname() {
         $db = DbManager::instance();
+        $data = $db->select('user', ['nickname' => $this->nickname]);
 
-        $sql = "select * from wforge.user where nickname = '{$this->nickname}'";
-
-        foreach($db->query($sql)->fetch($db::FETCH_ASSOC) as $k => $v) {
+        foreach($data as $k => $v) {
             $this->cast($k, $v);
         }
 
         return $this->toArray();
-    }
-
-    public function getNickname() {
-        return $this->nickname;
     }
 }

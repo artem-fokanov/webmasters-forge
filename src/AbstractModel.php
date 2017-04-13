@@ -27,4 +27,8 @@ abstract class AbstractModel {
     protected function getProperties() {
         return get_class_vars(get_class($this));
     }
+
+    public function __get($name) {
+        return $this->$name;
+    }
 }

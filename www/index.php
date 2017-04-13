@@ -5,13 +5,38 @@ define('DS', DIRECTORY_SEPARATOR);
 require_once __ROOT__ . DS . 'autoloader.php';
 
 if (isset($_POST['nickname'], $_POST['password'])) {
-    $user = src\User::newFromArray($_POST);
+    $post = $_POST;
+    $user = src\User::newFromArray($post);
 
+    // регистрация
     if (isset($_POST['email'])) {
+        $post['password_hash'] = password_hash($post['password'], PASSWORD_DEFAULT);
         // вначале получить id
-        $image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); //SQL Injection defence!
-        $detail = array_merge($_POST, ['image' => $image]);
-        $userDetail = src\UserDetail::newFromArray($detail);
+        if (isset($_FILES['image'])) {
+            $image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); //SQL Injection defence!
+            $post = array_merge($post, ['image' => $image]);
+        }
+        $user = src\User::newFromArray($post);
+
+        $db = \src\DbManager::instance();
+        $db->beginTransaction();
+
+        try {
+            $userId = $db->insert('user', array_filter($user->toArray()));
+
+            $post = array_merge($post, ['user_id' => $userId]);
+
+            $userDetail = src\UserDetail::newFromArray($post);
+
+            $userDetailId = $db->insert('user_detail', $userDetail->toArray());
+
+            $db->commit();
+
+            header('Location: /');
+        } catch (PDOException $e) {
+            $db->rollback();
+        }
+
     }
 
 } else {

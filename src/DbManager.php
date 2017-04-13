@@ -32,8 +32,31 @@ class DbManager extends \PDO {
         foreach ($params as $column => $value) {
             $statement->bindParam($this->prepareParam($column), $this->prepareValue($value));
         }
+        $result = $statement->execute();
 
-        return $db->lastInsertId();
+        if (!$result)
+            throw new \PDOException('Can\'t insert');
+
+        return intval($db->lastInsertId());
+    }
+
+    public function select($table, $where) {
+        $db = self::instance();
+        $columns = array_keys($where);
+
+        $sql = "select * from $table where ";
+        foreach ($columns as $col) {
+            $sql .= "$col = :$col";
+        }
+        $sql .= ";";
+        $statement = $db->prepare($sql);
+
+        foreach ($where as $column => $value) {
+            $statement->bindParam($this->prepareParam($column), $this->prepareValue($value));
+        }
+        $statement->execute();
+
+        return $statement->fetch(self::FETCH_ASSOC);
     }
 
     protected function prepareParam($param) {
@@ -44,7 +67,7 @@ class DbManager extends \PDO {
         if (is_null($value))
             return self::PARAM_NULL;
 
-        // сюда прицепить экранирование
+        // экранирование
         return $value;
     }
 }

@@ -14,42 +14,42 @@
     <form name="signup" class="form-horizontal form-registration" method="post" action="/" enctype="multipart/form-data">
         <h2 class="form-signin-heading">Signing up</h2>
 
-        <div class="form-group">
+        <div class="form-group required">
             <label for="nickname" class="col-sm-2 control-label">Login</label>
             <div class="col-sm-10">
-                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Nickname" autofocus required>
+                <input type="text" name="nickname" class="form-control" id="nickname" placeholder="nickname" autofocus required>
             </div>
             <span id="nickname-help-block" class="help-block"></span>
         </div>
 
-        <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Full name">
-            </div>
-            <span id="name-help-block" class="help-block"></span>
-        </div>
-
-        <div class="form-group">
+        <div class="form-group required">
             <label for="email" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" name="email" class="form-control" id="email" placeholder="" required>
+                <input type="email" name="email" class="form-control" id="email" placeholder="email" required>
             </div>
             <span id="email-help-block" class="help-block"></span>
         </div>
 
         <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" id="name" placeholder="full name (optional)">
+            </div>
+            <span id="name-help-block" class="help-block"></span>
+        </div>
+
+        <div class="form-group required">
             <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="password" placeholder="" required>
+                <input type="password" name="password" class="form-control" id="password" placeholder="passwordw" required>
             </div>
             <span id="password-help-block" class="help-block"></span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group required">
             <label for="password_confirm" class="col-sm-2 control-label">Confirmation</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password_confirm" placeholder="" required>
+                <input type="password" class="form-control" id="password_confirm" placeholder="password confirmation" required>
             </div>
             <span id="password_confirm-help-block" class="help-block"></span>
         </div>

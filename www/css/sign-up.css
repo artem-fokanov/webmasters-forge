@@ -12,3 +12,7 @@ body {
 .form-registration input[type=file] {
     display: inline-block;
 }
+.form-registration .form-group.required .control-label:after {
+    content:"*";
+    color:red;
+}

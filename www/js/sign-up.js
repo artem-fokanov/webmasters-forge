@@ -8,8 +8,6 @@ $('form').on('submit', function() {
 
     if (!validate(form))
         return false;
-
-    return false;
 });
 
 function validate(form) {

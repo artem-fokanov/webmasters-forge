@@ -17,10 +17,11 @@
         'Password' => 'Пароль',
         'Confirmation' => 'Подтверждение',
         'Image' => 'Изображение',
-        'Go back to sign in prompt' => 'Вернутся к окну авторизации',
+        'Go back to sign in prompt' => 'Вернуться к окну авторизации',
         'nickname' => 'никнейм',
         'full name (optional)' => 'полное имя (опционально)',
-        'password confirmation' => 'подтверждение пароля'
+        'password confirmation' => 'подтверждение пароля',
+        'password' => 'пароль'
 
     ],
     'welcome' => [

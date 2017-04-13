@@ -16,3 +16,6 @@ body {
     content:"*";
     color:red;
 }
+.form-registration .form-group:last-child {
+    margin-top: 40px;
+}

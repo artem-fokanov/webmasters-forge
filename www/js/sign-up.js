@@ -11,9 +11,11 @@ $('form').on('submit', function() {
 });
 
 function validate(form) {
-    var FIELD_OK = true,
-        FIELD_ERROR = false,
-        isValidForm = true;
+    var FIELD_OK = true;
+    var FIELD_ERROR = false;
+
+    var isValidForm = true,
+        locale = getCookie();
 
     $(form).find('input[id]').each(function(i,el) {
         var isValidElem = true,
@@ -24,45 +26,45 @@ function validate(form) {
             case 'nickname':
                 if (!/^[^0-9]\w+$/.test(el.value)) {
                     isValidElem = false;
-                    msg = messages.alphanum_characters;
+                    msg = messages[locale].alphanum_characters;
                 }
 
                 if (el.value.length > 30) {
                     isValidElem = false;
-                    msg = messages.nickname_length;
+                    msg = messages[locale].nickname_length;
                 }
                 break;
 
             case 'name':
                 if (el.value.length > 100) {
                     isValidElem = false;
-                    msg = messages.name_length;
+                    msg = messages[locale].name_length;
                 }
                 break;
 
             case 'email':
                 if (el.value.length > 50) {
                     isValidElem = false;
-                    msg = messages.email_length;
+                    msg = messages[locale].email_length;
                 }
                 break;
 
             case 'password':
                 if (el.value.length < 3 || el.value.length > 20) {
                     isValidElem = false;
-                    msg = messages.password_length;
+                    msg = messages[locale].password_length;
                 }
 
                 if (!/^\w+$/.test(el.value)) {
                     isValidElem = false;
-                    msg = messages.alphanum_characters;
+                    msg = messages[locale].alphanum_characters;
                 }
                 break;
 
             case 'password_confirm':
                 if (el.value !== form.elements.password.value) {
                     isValidElem = false;
-                    msg = messages.password_mismatch;
+                    msg = messages[locale].password_mismatch;
 
                     // в т.ч. раскрашиваем пароль
                     visualizeHelp(form.elements.password.id, FIELD_ERROR);
@@ -93,10 +95,28 @@ function visualizeHelp(elemId, status, message) {
 }
 
 var messages = {
-    alphanum_characters: "This field should contain alpha-numeric characters",
-    nickname_length: "This field couldn't contain more than 30 characters",
-    name_length: "This field couldn't contain more than 100 characters",
-    email_length: "This field couldn't contain more than 50 characters",
-    password_mismatch: "Password mismatch",
-    password_length: "Password length should be at least 3 and at most 20 characters"
+    en: {
+        alphanum_characters: "This field should contain alpha-numeric characters",
+        nickname_length: "This field couldn't contain more than 30 characters",
+        name_length: "This field couldn't contain more than 100 characters",
+        email_length: "This field couldn't contain more than 50 characters",
+        password_length: "Password length should be at least 3 and at most 20 characters",
+        password_mismatch: "Password mismatch"
+    },
+    ru: {
+        alphanum_characters: "Это поле должно содержать только буквенно-цифровые символы",
+        nickname_length: "Это поле не может содержать более 30 символов",
+        name_length: "Это поле не может содержать более 100 символов",
+        email_length: "Это поле не может содержать более 50 символов",
+        password_length: "Длина пароля должна содержать не менее 3-х и не более 20-и символов",
+        password_mismatch: "Несоответствует паролю"
+    }
 };
+
+// возвращает cookie с именем name, если есть, если нет, то undefined
+function getCookie() {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + 'locale'.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : 'en';
+}

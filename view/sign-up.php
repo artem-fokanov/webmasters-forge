@@ -68,7 +68,7 @@
         </div>-->
 
         <div class="form-group">
-            <div class="col-md-offset-3 col-md-6">
+            <div class="col-md-offset-2 col-md-8">
                 <button type="submit" class="btn btn-lg btn-success btn-block"><?=t('Sign up')?></button>
                 <a class="btn btn-link pull-right" href="/" role="button"><?=t('Go back to sign in prompt')?></a>
             </div>

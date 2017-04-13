@@ -9,6 +9,7 @@ class UserDetail extends AbstractModel {
     protected $name;
     protected $email;
     protected $image;
+    protected $image_mime;
 
     public static function newFromArray(array $user)
     {

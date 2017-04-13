@@ -14,7 +14,8 @@ if (isset($_POST['nickname'], $_POST['password'])) {
         // вначале получить id
         if (isset($_FILES['image'])) {
             $image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); //SQL Injection defence!
-            $post = array_merge($post, ['image' => $image]);
+            $mime = $_FILES['image']['type'];
+            $post = array_merge($post, ['image' => $image, 'image_mime' => $mime]);
         }
         $user = src\User::newFromArray($post);
 

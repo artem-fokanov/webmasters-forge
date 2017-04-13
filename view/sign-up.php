@@ -49,8 +49,10 @@
         </div>
 
         <div class="form-group">
-            <label for="inputImage">Image</label>
-            <input type="file" name="image" id="inputImage">
+            <label class="col-sm-2" for="inputImage">Image</label>
+            <div class="col-sm-10">
+                <input type="file" name="image" id="inputImage">
+            </div>
         </div>
 
         <!--<div class="form-group">

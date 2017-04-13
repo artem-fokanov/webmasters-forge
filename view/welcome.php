@@ -1,4 +1,5 @@
 <?php
+    define('VIEW', basename(__FILE__, '.php'));
     $details = new src\UserDetail();
     $details->getByUserId($auth->user->id);
 ?>
@@ -6,45 +7,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
-<!--    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">-->
+    <title><?=t('Welcome')?></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
-
-<div class="container">
-
-    <nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
+    <div class="container">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="#" class="navbar-brand"><?=$auth->user->nickname?></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
-                <a class="btn pull-right btn-default navbar-btn" href="/?signout" role="button">Sign out</a>
+                <a class="btn pull-right btn-default navbar-btn" href="/?signout" role="button"><?=t('Sign out')?></a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+<div class="container">
 
 
 
-    <h3>Welcome,
+    <h3><?=t('Welcome')?>,
         <?php
-        if ($details->name)
-            echo $details->name, ' (', $auth->user->nickname, ')';
-        else
-            echo $auth->user->nickname;
+            if ($details->name)
+                echo t($details->name), ' (', $auth->user->nickname, ')';
+            else
+                echo $auth->user->nickname;
         ?>!
     </h3>
 
-    <p>Our finest user since <?=$auth->user->registered ?></p>
+    <p><?=t('Our finest user since')?> <?=$auth->user->registered ?></p>
 
-    <p>Email <?=$details->email?></p>
+    <p><?=t('Email')?> <?=$details->email?></p>
 
     <?php if ($details->image) : ?>
         <img class="img-rounded" src="data:<?=$details->image_mime?>;base64,<?=base64_encode(stripslashes($details->image))?>" />
     <?php endif;?>
 
 </div>
+
+<?php include $templates.'footer.php'; ?>
 
 </body>
 </html>

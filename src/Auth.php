@@ -30,7 +30,7 @@ class Auth {
     public function auth() {
 
         // возобновление ранее начатой сессии
-        if(isset($_COOKIE[session_name()])) {
+        if(isset($_COOKIE[session_name()], $_SESSION['user'])) {
             $this->_startSession();
 
             $this->user = $_SESSION['user'];

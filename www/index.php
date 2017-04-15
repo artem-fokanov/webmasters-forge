@@ -1,10 +1,7 @@
 <?php
 
-defined('__ROOT__') or define('__ROOT__', dirname(dirname(__FILE__)));
-define('DS', DIRECTORY_SEPARATOR);
-
 // автозагрузка, обработчик критического падения, i18n
-require_once __ROOT__ . DS . 'autoloader.php';
+require_once dirname(dirname(__FILE__)) . '/autoloader.php';
 
 // действие смены локали
 if (isset($_GET['ru']) || isset($_GET['en'])) {

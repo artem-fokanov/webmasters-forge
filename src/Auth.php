@@ -43,7 +43,7 @@ class Auth {
         // создание новой сессии при наличии логин-пароля
         if (isset($_POST['nickname'], $_POST['password'])) {
 
-            $userData = $this->user->getByNickname($_POST['nickname']);
+            $userData = $this->user->getByNickname();
 
             if ($userData && password_verify($_POST['password'], $userData['password_hash'])) {
                 $this->_startSession();

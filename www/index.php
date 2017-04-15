@@ -11,7 +11,7 @@ if (isset($_GET['ru']) || isset($_GET['en'])) {
 if (isset($_POST['nickname'], $_POST['password'])) {
     $login = true;
     $post = $_POST;
-    $user = src\User::newFromArray($post);
+    $user = src\model\User::newFromArray($post);
 
     // регистрация
     if (isset($_POST['email'])) {
@@ -27,7 +27,7 @@ if (isset($_POST['nickname'], $_POST['password'])) {
             $post = array_merge($post, ['image' => $image, 'image_mime' => $mime]);
         }
         // создаем модель юзера
-        $user = src\User::newFromArray($post);
+        $user = src\model\User::newFromArray($post);
 
         $db = \src\DbManager::instance();
         $db->beginTransaction();
@@ -38,7 +38,7 @@ if (isset($_POST['nickname'], $_POST['password'])) {
 
             $post = array_merge($post, ['user_id' => $userId]);
 
-            $userDetail = src\UserDetail::newFromArray($post);
+            $userDetail = src\model\UserDetail::newFromArray($post);
 
             $db->insert('user_detail', $userDetail->toArray());
             $db->commit();
@@ -51,7 +51,7 @@ if (isset($_POST['nickname'], $_POST['password'])) {
     }
 
 } else {
-    $user = new src\User();
+    $user = new src\model\User();
 }
 
 try {
@@ -61,7 +61,7 @@ try {
         throw new src\AuthException('', src\AuthException::USER_WITH_SUCH_LOGIN_EXIST);
 
     if (isset($login) && $auth->isAuthentificated() === false)
-        throw new src\AuthException();
+        throw new src\AuthException('', src\AuthException::USER_DOESNT_EXIST);
 
     unset($user);
 

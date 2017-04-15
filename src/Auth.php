@@ -1,6 +1,7 @@
 <?php
 
 namespace src;
+use src\model\User;
 
 class Auth {
 
@@ -15,7 +16,7 @@ class Auth {
     protected $_isAuth = false;
 
     /**
-     * @var \src\User - модель пользователя
+     * @var \src\model\User - модель пользователя
      */
     public $user;
 

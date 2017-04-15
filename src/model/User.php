@@ -1,7 +1,8 @@
 <?php
 
-namespace src;
-
+namespace src\model;
+use \src\AbstractModel;
+use \src\DbManager;
 
 /**
  * Класс-представление записи в таблице wforge.user

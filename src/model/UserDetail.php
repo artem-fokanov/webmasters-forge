@@ -1,7 +1,8 @@
 <?php
 
-namespace src;
-
+namespace src\model;
+use \src\AbstractModel;
+use \src\DbManager;
 
 /**
  * Класс-представление записи в таблице wforge.user_detail
@@ -9,7 +10,7 @@ namespace src;
  * Class UserDetail
  * @package src
  */
-class UserDetail extends AbstractModel {
+final class UserDetail extends AbstractModel {
 
     protected $user_id;
     protected $name;

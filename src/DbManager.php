@@ -48,7 +48,7 @@ class DbManager extends \PDO {
 
         $statement = $db->prepare($sql);
         foreach ($params as $column => $value) {
-            $statement->bindParam($this->prepareParam($column), $this->prepareValue($value));
+            $statement->bindValue($this->prepareParam($column), $this->prepareValue($value));
         }
         $result = $statement->execute();
 
@@ -77,7 +77,7 @@ class DbManager extends \PDO {
         $statement = $db->prepare($sql);
 
         foreach ($where as $column => $value) {
-            $statement->bindParam($this->prepareParam($column), $this->prepareValue($value));
+            $statement->bindValue($this->prepareParam($column), $this->prepareValue($value));
         }
         $statement->execute();
 

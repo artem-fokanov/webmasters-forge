@@ -1,6 +1,6 @@
 <?php
     define('VIEW', basename(__FILE__, '.php'));
-    $details = new src\UserDetail();
+    $details = new src\model\UserDetail();
     $details->getByUserId($auth->user->id);
 ?>
 <!DOCTYPE html>

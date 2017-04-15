@@ -1,6 +1,7 @@
 <?php
 
 namespace src;
+use src\model\User;
 
 class Auth {
 
@@ -15,7 +16,7 @@ class Auth {
     protected $_isAuth = false;
 
     /**
-     * @var \src\User - модель пользователя
+     * @var \src\model\User - модель пользователя
      */
     public $user;
 
@@ -42,7 +43,7 @@ class Auth {
         // создание новой сессии при наличии логин-пароля
         if (isset($_POST['nickname'], $_POST['password'])) {
 
-            $userData = $this->user->getByNickname($_POST['nickname']);
+            $userData = $this->user->getByNickname();
 
             if ($userData && password_verify($_POST['password'], $userData['password_hash'])) {
                 $this->_startSession();

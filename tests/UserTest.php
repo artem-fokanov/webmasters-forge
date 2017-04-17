@@ -2,8 +2,8 @@
 
 namespace tests;
 
-use PHPUnit\Framework\TestCase;
 use src\model\User;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers User
@@ -18,17 +18,32 @@ final class UserTest extends TestCase
         );
     }
 
-    public function testNicknameCannotBeUnsafe()
+    /**
+     * @dataProvider xssInjectionProvider
+     */
+    public function testXssInjectionThroughtNickname($nickname, $expect)
     {
         $user = User::newFromArray([
-            'nickname' => 'user<script>',
-            'password' => '12'
+            'nickname' => $nickname
         ]);
 
+        $result = $user->getByNickname();
+
         $this->assertEquals(
-            null,
-            $user->nickname
+            $expect,
+            $result
         );
+    }
+
+    public function xssInjectionProvider()
+    {
+        return [
+            ['user<script>', false],
+            ['<script>alert(document.cookie)</script>', false],
+            ['<img src="http://www.want2vote.com/uploads/minecraft/walls/mini/GN5PQeDKREIysU5IQ.jpg"/>', false],
+            ['<sc<script>ript>alert()</sc</script>ript>', false],
+            ['";!--"<tag>=&{()}', false],
+        ];
     }
 
     /**

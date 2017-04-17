@@ -64,15 +64,19 @@ final class UserDetail extends AbstractModel {
     {
         if (property_exists($this, $property)) {
             switch ($property) {
+
                 case 'user_id':
                     $value = intval($value);
                     break;
+
                 case 'name':
                     $value = filter_var($value, FILTER_SANITIZE_STRING);
                     break;
+
                 case 'email':
                     $value = filter_var($value, FILTER_SANITIZE_EMAIL);
                     break;
+
                 default:
                     break;
             }

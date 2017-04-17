@@ -27,17 +27,17 @@ class AuthTest extends TestCase {
     public function request($login, $pass)
     {
         $ch = curl_init();
-
+        $post = [
+            'nickname' => $login,
+            'password' => $pass
+        ];
         curl_setopt($ch, CURLOPT_URL,"https://zvu.in.ua");
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "nickname=$login&password=$pass");
-        @curl_setopt($ch, CURLOPT_HEADER  , true);
-        @curl_setopt($ch, CURLOPT_NOBODY  , true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($ch, CURLOPT_HEADER  , true);
 
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $server_output = curl_exec ($ch);
 
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close ($ch);

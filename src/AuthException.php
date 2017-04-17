@@ -25,6 +25,8 @@ class AuthException extends \Exception {
                 break;
             default: break;
         }
+
+        http_response_code(401);
         parent::__construct($message, $code, $previous);
     }
 }

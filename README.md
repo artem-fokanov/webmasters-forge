@@ -5,7 +5,8 @@
 ### Развертывание:
 1. ***config/db.php*** - найстроки DSN для подключения к mysql (либо к другой, поддерживаемой расширениями PDO, базе данных)
 1. В корне проекта лежит ***dump.sql***, который поможет развернуть БД с необходимой структурой таблиц
-1. Проект требует mod_rewrite, php > 5.5, ext-pdo, ext-pdo_mysql
+1. Проект требует mod_rewrite, php > 5.5, ext-pdo, ext-pdo_mysql, ext-curl (для тестов)
+1. ***composer install*** для PHPUnit
 
 ### Структура: 
 * [приложения](docs/schema-code.md)

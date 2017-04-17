@@ -31,13 +31,15 @@ class Auth {
     public function auth() {
 
         // возобновление ранее начатой сессии
-        if(isset($_COOKIE[session_name()], $_SESSION['user'])) {
+        if(isset($_COOKIE[session_name()])) {
             $this->_startSession();
 
-            $this->user = $_SESSION['user'];
+            if (isset($_SESSION['user'])) {
+                $this->user = $_SESSION['user'];
+                $this->_isAuth = true;
+                return;
+            }
 
-            $this->_isAuth = true;
-            return;
         }
 
         // создание новой сессии при наличии логин-пароля

@@ -1,75 +1,39 @@
-$('form').on('submit', function() {
-    var form = this;
+var form = $('form'),
+    locale = getCookie();
+// флаги для передачи в помощник
+var FIELD_OK = true,
+    FIELD_ERROR = false;
 
-    // скрытие помощника
-    $(form).find('.has-success, .has-error').removeClass('has-success has-error');
-    $(form).find('span.help-block').text('');
+form.on('submit', function() {
+
+    clearForm(form);
 
     if (!validate(form))
         return false;
+
+}).find('input[id]').on('change', function() {
+    var isValidElem = validateField(this);
+
+    clearElement(this.id);
+
+    if (isValidElem) {
+        visualizeHelp(this.id, FIELD_OK);
+    } else {
+        visualizeHelp(this.id, FIELD_ERROR, msg);
+    }
 });
 
 function validate(form) {
-    // флаги для передачи в помощник
-    var FIELD_OK = true,
-        FIELD_ERROR = false;
+    var isValidForm = true;
 
-    var isValidForm = true,
-        locale = getCookie();
+    form.find('input[id]').each(function(i,el) {
+        var msg,
+            isValidElem = validateField(el);
 
-    $(form).find('input[id]').each(function(i,el) {
-        var isValidElem = true,
-            msg;
+        if (el.id == 'password_confirm' && !isValidElem && msg == messages[locale].password_mismatch) {
 
-        switch(el.id) {
-
-            case 'nickname':
-                if (!/^[^0-9]\w+$/.test(el.value)) {
-                    isValidElem = false;
-                    msg = messages[locale].alphanum_characters;
-                }
-
-                if (el.value.length > 30) {
-                    isValidElem = false;
-                    msg = messages[locale].nickname_length;
-                }
-                break;
-
-            case 'name':
-                if (el.value.length > 100) {
-                    isValidElem = false;
-                    msg = messages[locale].name_length;
-                }
-                break;
-
-            case 'email':
-                if (el.value.length > 50) {
-                    isValidElem = false;
-                    msg = messages[locale].email_length;
-                }
-                break;
-
-            case 'password':
-                if (el.value.length < 3 || el.value.length > 20) {
-                    isValidElem = false;
-                    msg = messages[locale].password_length;
-                }
-
-                if (!/^\w+$/.test(el.value)) {
-                    isValidElem = false;
-                    msg = messages[locale].alphanum_characters;
-                }
-                break;
-
-            case 'password_confirm':
-                if (el.value !== form.elements.password.value) {
-                    isValidElem = false;
-                    msg = messages[locale].password_mismatch;
-
-                    // в т.ч. раскрашиваем пароль
-                    visualizeHelp(form.elements.password.id, FIELD_ERROR);
-                }
-                break;
+            // в т.ч. раскрашиваем пароль
+            visualizeHelp(form[0].elements.password.id, FIELD_ERROR);
         }
 
         if (isValidElem) {
@@ -84,6 +48,66 @@ function validate(form) {
     return isValidForm;
 }
 
+function validateField(el) {
+    var valid = true;
+
+    switch(el.id) {
+
+        case 'nickname':
+            if (!/^[^0-9]\w+$/.test(el.value)) {
+                valid = false;
+                msg = messages[locale].alphanum_characters;
+            }
+
+            if (el.value.length > 30) {
+                valid = false;
+                msg = messages[locale].nickname_length;
+            }
+            break;
+
+        case 'name':
+            if (el.value.length > 100) {
+                valid = false;
+                msg = messages[locale].name_length;
+            }
+            break;
+
+        case 'email':
+            if (el.value.length > 50) {
+                valid = false;
+                msg = messages[locale].email_length;
+            }
+            if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(el.value)) {
+                valid = false;
+                msg = messages[locale].email_characters;
+            }
+            break;
+
+        case 'password':
+            if (el.value.length < 3 || el.value.length > 20) {
+                valid = false;
+                msg = messages[locale].password_length;
+            }
+
+            if (!/^\w+$/.test(el.value)) {
+                valid = false;
+                msg = messages[locale].alphanum_characters;
+            }
+            break;
+
+        case 'password_confirm':
+            if (el.value !== form[0].elements.password.value) {
+                valid = false;
+                msg = messages[locale].password_mismatch;
+            }
+            break;
+
+        default: break;
+    }
+
+    return valid;
+}
+
 // помощник
 function visualizeHelp(elemId, status, message) {
     var colorClass = (status) ? 'success' : 'error';
@@ -95,6 +119,18 @@ function visualizeHelp(elemId, status, message) {
     }
 }
 
+function clearForm() {
+    // скрытие помощника
+    form.find('.has-success, .has-error').removeClass('has-success has-error');
+    form.find('span.help-block').text('');
+}
+
+function clearElement(elemId) {
+    var block = $('#'+elemId).closest('div.form-group');
+    block.removeClass('has-success has-error')
+        .find('span.help-block').text('');
+}
+
 // словарь сообщений
 var messages = {
     en: {
@@ -102,6 +138,7 @@ var messages = {
         nickname_length: "This field couldn't contain more than 30 characters",
         name_length: "This field couldn't contain more than 100 characters",
         email_length: "This field couldn't contain more than 50 characters",
+        email_characters: "Invalid email",
         password_length: "Password length should be at least 3 and at most 20 characters",
         password_mismatch: "Password mismatch"
     },
@@ -110,6 +147,7 @@ var messages = {
         nickname_length: "Это поле не может содержать более 30 символов",
         name_length: "Это поле не может содержать более 100 символов",
         email_length: "Это поле не может содержать более 50 символов",
+        email_characters: "Некорректная электронная почта",
         password_length: "Длина пароля должна содержать не менее 3-х и не более 20-и символов",
         password_mismatch: "Несоответствует паролю"
     }
